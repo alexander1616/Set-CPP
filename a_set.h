@@ -14,6 +14,7 @@ public:
     };
     a_set_t& intersect(a_set_t &p);
     a_set_t& disjoin(a_set_t &p);
+    a_set_t& combine(a_set_t &p);
     int findIndex(int);
     void printData();
 public:

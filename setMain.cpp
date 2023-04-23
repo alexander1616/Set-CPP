@@ -19,6 +19,9 @@ int main(int ac, char* av[]){
     a_set_t *C;
     C = &A.intersect(B);
     C->printData();
+
+    //std::cout << C << std::endl;
+    
     a_set_t *D;
     D = &A.disjoin(B);
     D->printData();

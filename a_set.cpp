@@ -15,19 +15,19 @@ void a_set_t::reallocPool(){
     }
     data_pool = newDataPool;
     data_max += incrSize;
-};
+}
 
 //constructor
 a_set_t::a_set_t(){
     data_count = 0;
     data_max = 0;
     reallocPool();
-};
+}
 
 //destructor
 a_set_t::~a_set_t(){
     delete [] data_pool;
-};
+}
 
 int a_set_t::findIndex(int x){
     int idx;
@@ -37,7 +37,7 @@ int a_set_t::findIndex(int x){
         }
     }
     return -1;
-};
+}
 
 void a_set_t::add(int x){
     if (findIndex(x) > 0){
@@ -47,7 +47,7 @@ void a_set_t::add(int x){
         reallocPool();
     }
     data_pool[data_count++] = x;
-};
+}
 
 void a_set_t::remove(int x){
     int idx = findIndex(x);
@@ -58,7 +58,7 @@ void a_set_t::remove(int x){
         data_pool[idx] = data_pool[idx + 1];
     }
     data_count--;
-};
+}
 
 a_set_t& a_set_t::intersect(a_set_t &p){
     a_set_t *newSet = new a_set_t;
@@ -69,7 +69,7 @@ a_set_t& a_set_t::intersect(a_set_t &p){
         };
     }
     return *newSet;
-};
+}
 
 a_set_t& a_set_t::disjoin(a_set_t &p){
     a_set_t *newSet = new a_set_t;
@@ -86,7 +86,19 @@ a_set_t& a_set_t::disjoin(a_set_t &p){
         };
     }
     return *newSet;
-};
+}
+
+a_set_t& a_set_t::combine(a_set_t &p){
+    a_set_t *newSet = new a_set_t;
+    int i;
+    for (i = 0; i < data_count; i++){
+        newSet->add(data_pool[i]);
+    }
+    for (i = 0; i < p.data_count; i++){
+        newSet->add(p.data_pool[i]);
+    }
+    return *newSet;
+}
 
 void a_set_t::printData(){
     int i;
@@ -94,4 +106,4 @@ void a_set_t::printData(){
         std::cout << data_pool[i] << '\n';
     } 
     std::cout << '\n';
-};
+}
