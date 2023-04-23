@@ -11,7 +11,7 @@ void a_set_t::reallocPool(){
         for (i = 0; i < data_count; i++){
             newDataPool[i] = data_pool[i];
         }        
-        delete data_pool;
+        delete [] data_pool;
     }
     data_pool = newDataPool;
     data_max += incrSize;
@@ -26,7 +26,7 @@ a_set_t::a_set_t(){
 
 //destructor
 a_set_t::~a_set_t(){
-    delete data_pool;
+    delete [] data_pool;
 };
 
 int a_set_t::findIndex(int x){
