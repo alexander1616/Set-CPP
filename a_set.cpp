@@ -24,9 +24,41 @@ a_set_t::a_set_t(){
     reallocPool();
 }
 
+//copy constructor
+a_set_t::a_set_t(const a_set_t& p){
+	data_count = 0;
+	data_max = 0;
+	reallocPool();
+	int i;
+	for (i = 0; i < p.data_count; i++){
+		add(p.data_pool[i]);
+	}
+}
+
+//assignment operator
+a_set_t& a_set_t::operator = (const a_set_t& p){
+	delete [] data_pool;
+	data_count = 0;
+	data_max = 0;
+	int i;
+	for (i = 0; i < p.data_count; i++){
+		add(p.data_pool[i]);
+	}
+	return *this;
+}
+
 //destructor
 a_set_t::~a_set_t(){
     delete [] data_pool;
+}
+
+//friend
+std::ostream& operator << (std::ostream& os, const a_set_t& p){
+    int i;
+    for (i = 0; i < p.data_count; i++){
+        os << p.data_pool[i] << ' ';
+    } 
+    return os;
 }
 
 int a_set_t::findIndex(int x){
@@ -88,16 +120,21 @@ a_set_t& a_set_t::disjoin(a_set_t &p){
     return *newSet;
 }
 
-a_set_t& a_set_t::combine(a_set_t &p){
-    a_set_t *newSet = new a_set_t;
+a_set_t a_set_t::combine(a_set_t &p){
+    //a_set_t *newSet = new a_set_t(p);
+	
+	a_set_t newSet(p);
+	
     int i;
     for (i = 0; i < data_count; i++){
-        newSet->add(data_pool[i]);
+        newSet.add(data_pool[i]);
     }
+	/*
     for (i = 0; i < p.data_count; i++){
         newSet->add(p.data_pool[i]);
     }
-    return *newSet;
+	*/
+    return newSet;
 }
 
 void a_set_t::printData(){

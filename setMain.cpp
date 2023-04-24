@@ -3,7 +3,6 @@
 #include "a_set.h"
 
 int main(int ac, char* av[]){
-    std::cout << "hello" << std::endl; 
     a_set_t A;
     a_set_t B;
     A.add(10);
@@ -16,17 +15,27 @@ int main(int ac, char* av[]){
     B.add(50);
     B.add(80);
 
+	std::cout << "A [" << A << "]\n";	
+	std::cout << "B [" << B << "]\n";	
+
     a_set_t *C;
     C = &A.intersect(B);
-    C->printData();
+    //C->printData();
+	std::cout << "C [" << *C << "]\n";	
 
     //std::cout << C << std::endl;
     
     a_set_t *D;
     D = &A.disjoin(B);
-    D->printData();
+    //D->printData();
+	std::cout << "D [" << *D << "]\n";	
+
+	a_set_t E = A.combine(B);
+	std::cout << "E [" << E << "]\n";	
+	//E.printData();
 
     delete C;
     delete D;
+
     return 0;
 }
