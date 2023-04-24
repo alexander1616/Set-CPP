@@ -15,6 +15,9 @@ public:
     a_set_t& intersect(a_set_t &p);
     a_set_t& disjoin(a_set_t &p);
     a_set_t& combine(a_set_t &p);
+
+    a_set_t& a_set_t::operator = (const a_set_t) = delete;
+
     int findIndex(int);
     void printData();
 public:
