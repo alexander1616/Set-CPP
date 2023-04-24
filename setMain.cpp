@@ -20,20 +20,27 @@ int main(int ac, char* av[]){
 
     a_set_t *C;
     C = &A.intersect(B);
-    //C->printData();
 	std::cout << "C [" << *C << "]\n";	
-
-    //std::cout << C << std::endl;
     
     a_set_t *D;
     D = &A.disjoin(B);
-    //D->printData();
 	std::cout << "D [" << *D << "]\n";	
 
 	a_set_t E = A.combine(B);
 	std::cout << "E [" << E << "]\n";	
-	//E.printData();
+	
+	for (int i = 0; i < A.count(); i++){
+		std::cout << "A [" << i << "] = " << A[i] << '\n';
+	}
+	
+	for (int i = 0; i < C->count(); i++){
+		std::cout << "C [" << i << "] = " << (*C)[i] << '\n';
+	}
 
+	std::cout << "A - B [" << A - B << "]\n";	
+	
+	std::cout << "A + C [" << A + (*C) << "]\n";	
+	
     delete C;
     delete D;
 

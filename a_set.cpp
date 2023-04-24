@@ -52,13 +52,29 @@ a_set_t::~a_set_t(){
     delete [] data_pool;
 }
 
-//friend
-std::ostream& operator << (std::ostream& os, const a_set_t& p){
-    int i;
-    for (i = 0; i < p.data_count; i++){
-        os << p.data_pool[i] << ' ';
-    } 
-    return os;
+int a_set_t::operator [] (int idx){
+	if (idx < 0 || idx > data_count){
+		throw std::invalid_argument("bad idx");
+	}
+	return data_pool[idx];
+}
+
+a_set_t a_set_t::operator + (a_set_t& p){
+	a_set_t x(p);
+	int i;
+	for (i = 0; i < data_count; i++){
+		x.add(data_pool[i]);
+	}
+	return x;
+}
+
+a_set_t a_set_t::operator - (a_set_t& p){
+	a_set_t x(*this);
+	int i;
+	for (i = 0; i < p.data_count; i++){
+		x.remove(p.data_pool[i]);
+	}
+	return x;
 }
 
 int a_set_t::findIndex(int x){
@@ -75,7 +91,7 @@ void a_set_t::add(int x){
     if (findIndex(x) > 0){
         return;
     }
-    if (data_count > data_max){
+    if (data_count >= data_max){
         reallocPool();
     }
     data_pool[data_count++] = x;
@@ -143,4 +159,13 @@ void a_set_t::printData(){
         std::cout << data_pool[i] << '\n';
     } 
     std::cout << '\n';
+}
+
+//friend
+std::ostream& operator << (std::ostream& os, const a_set_t& p){
+    int i;
+    for (i = 0; i < p.data_count; i++){
+        os << p.data_pool[i] << ' ';
+    } 
+    return os;
 }
